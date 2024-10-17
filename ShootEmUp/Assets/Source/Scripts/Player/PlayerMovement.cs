@@ -1,73 +1,106 @@
 using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
-    private SPUM_Prefabs spumPrefab;
-    private Vector2 movement;
-    private bool isAttacking = false;
-    private bool facingRight = false;
+    private SPUM_Prefabs _spumPrefab;
+    private Rigidbody2D _rigidbody;
+    private Vector2 _movement;
+    private bool _isAttacking = false;
+    private bool _facingRight = false;
 
     private void Awake()
     {
-        spumPrefab = GetComponent<SPUM_Prefabs>();
+        _spumPrefab = GetComponent<SPUM_Prefabs>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
+        _movement = Vector2.zero;
 
-        if (movement.sqrMagnitude > 0.1f)
+        if (Input.GetKey(KeyCode.W))
         {
-            spumPrefab.PlayAnimation(1); 
+            _movement.y = 1;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            _movement.y = -1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            _movement.x = -1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _movement.x = 1;
+        }
 
-            if (movement.x > 0 && !facingRight)
+        if (_movement.sqrMagnitude > 0.1f)
+        {
+            _spumPrefab.PlayAnimation(1);
+            if (_movement.x > 0 && !_facingRight)
             {
                 Flip();
             }
-            else if (movement.x < 0 && facingRight)
+            else if (_movement.x < 0 && _facingRight)
             {
                 Flip();
             }
         }
         else
         {
-            spumPrefab.PlayAnimation(0); 
+            _spumPrefab.PlayAnimation(0);
         }
-        
-        Attack();
-        Move();
     }
 
-    private void Move()
+    private void FixedUpdate()
     {
-        transform.Translate(movement * _moveSpeed * Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + _movement * _moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void Attack()
+    public void Attack()
     {
-        if (!isAttacking)
+        if (!_isAttacking)
         {
-            isAttacking = true;
-            spumPrefab.PlayAnimation(4);
+            _isAttacking = true;
+            _spumPrefab.PlayAnimation(4);
             StartCoroutine(EndAttack());
         }
     }
 
     private void Flip()
     {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
-    
+
+    public void Die()
+    {
+        _spumPrefab.PlayAnimation(2);
+        GetComponent<Collider2D>().enabled = false; 
+        enabled = false; 
+        StartCoroutine(DieTick(0.5f)); 
+    }
+
+    public void NextLevel(Vector2 position)
+    {
+        transform.DOMove(position, 5f);
+    }
+
+    private IEnumerator DieTick(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
+
     private IEnumerator EndAttack()
     {
-        yield return new WaitForSeconds(0.5f); 
-        isAttacking = false;
+        yield return new WaitForSeconds(0.5f);
+        _isAttacking = false;
     }
 }
