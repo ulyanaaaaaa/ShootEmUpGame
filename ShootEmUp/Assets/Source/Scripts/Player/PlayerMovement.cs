@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
+    private Camera _mainCamera;
     private SPUM_Prefabs _spumPrefab;
     private Rigidbody2D _rigidbody;
     private Vector2 _movement;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _spumPrefab = GetComponent<SPUM_Prefabs>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _mainCamera = Camera.main;
     }
 
     private void Update()
@@ -87,9 +89,10 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DieTick(0.5f)); 
     }
 
-    public void NextLevel(Vector2 position)
+    public void NextLevel(Vector2 position, Vector3 cameraPosition, float time)
     {
-        transform.DOMove(position, 5f);
+        transform.DOMove(position, time);
+        _mainCamera.transform.DOMove(cameraPosition, time);
     }
 
     private IEnumerator DieTick(float delay)

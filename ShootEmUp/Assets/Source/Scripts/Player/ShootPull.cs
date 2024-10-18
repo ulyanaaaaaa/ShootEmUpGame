@@ -13,7 +13,7 @@ public class ShootPull : MonoBehaviour
     public void SpawnCartridge(Vector2 direction)
     {
         Cartridge cartridge = Instantiate(_cartridge);
-        cartridge.Setup(GetComponent<ShootSpawner>().ShootPull);
+        cartridge.Setup(GetComponent<PlayerShoot>().ShootPull);
         cartridge.transform.position = _spawnPoint.position;
         cartridge.GetComponent<Cartridge>().SetDirection(direction);
     }

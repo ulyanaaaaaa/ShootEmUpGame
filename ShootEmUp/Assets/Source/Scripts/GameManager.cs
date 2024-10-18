@@ -6,27 +6,54 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyPull _enemyPull;
     [SerializeField] private Transform[] _spawnPointsFirstLevel;
     [SerializeField] private Transform[] _spawnPointsSecondLevel;
-    [SerializeField] private float _directionFirst;
-    [SerializeField] private float _directionSecond;
     [SerializeField] private Transform _secondLevelPosition;
-    private PlayerMovement _player;
-
-    private void Awake()
-    {
-        _player = FindObjectOfType<PlayerMovement>();
-    }
+    [SerializeField] private Vector3 _cameraSecondPosition;
+    [SerializeField] private PlayerMovement _player;
+    [SerializeField] private EnemySpawner _enemy;
+    [SerializeField] private float _playerTime = 5f;
+    [SerializeField] private int _startEnemyCount;
+    [SerializeField] private float _enemyMultiplier;
+    [SerializeField] private int _enemiesWaveCountFirstLevel;
+    [SerializeField] private int _enemiesWaveCountSecondLevel;
+    private Coroutine _coroutine;
+    private Coroutine _gameCycle;
+    private bool _wavesCompleted;
 
     private void Start()
     {
-        StartCoroutine(LevelTick(_directionFirst));
+        _enemy.OnWavesCompleted += WavesCompletedHandler;
+        _gameCycle = StartCoroutine(GameCycle());
     }
 
-    private IEnumerator LevelTick(float delay)
+    private IEnumerator GameCycle()
     {
+        FirstLevel();
+        yield return new WaitUntil(() => _wavesCompleted); 
+        yield return StartCoroutine(PlayerTransition());
+        SecondLevel();
+    }
+
+    private void FirstLevel()
+    {
+        _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsFirstLevel;
-        yield return new WaitForSeconds(delay);
-        _player.NextLevel(_secondLevelPosition.position);
-        yield return new WaitForSeconds(5f);
+        _enemy.EnemiesWaves(_startEnemyCount, _enemiesWaveCountFirstLevel);
+    }
+
+    private IEnumerator PlayerTransition()
+    {
+        _player.NextLevel(_secondLevelPosition.position, _cameraSecondPosition, _playerTime);
+        yield return new WaitForSeconds(_playerTime);
+    }
+
+    private void SecondLevel()
+    {
         _enemyPull.SpawnPoints = _spawnPointsSecondLevel;
+        _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountSecondLevel);
+    }
+
+    private void WavesCompletedHandler()
+    {
+        _wavesCompleted = true;
     }
 }
