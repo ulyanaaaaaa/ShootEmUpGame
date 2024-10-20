@@ -14,6 +14,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Cartridge.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Player/PlayerShoot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/WindowsManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -55,6 +56,8 @@
       <workItem from="1729164531534" duration="1802000" />
       <workItem from="1729194329345" duration="8327000" />
       <workItem from="1729237118938" duration="4988000" />
+      <workItem from="1729429473145" duration="4494000" />
+      <workItem from="1729453216558" duration="5068000" />
     </task>
     <servers />
   </component>

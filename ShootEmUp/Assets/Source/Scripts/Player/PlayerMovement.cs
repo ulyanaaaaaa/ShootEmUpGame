@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Action OnDie;
     [SerializeField] private float _moveSpeed = 5f;
     private Camera _mainCamera;
     private SPUM_Prefabs _spumPrefab;
@@ -83,22 +85,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
-        _spumPrefab.PlayAnimation(2);
         GetComponent<Collider2D>().enabled = false; 
         enabled = false; 
         StartCoroutine(DieTick(0.5f)); 
     }
 
-    public void NextLevel(Vector2 position, Vector3 cameraPosition, float time)
+    public void NextLevel(Vector2 position, float time)
     {
+        _spumPrefab.PlayAnimation(1, time);
         transform.DOMove(position, time);
-        _mainCamera.transform.DOMove(cameraPosition, time);
+        Vector3 cameraNewPosition = new Vector3(_mainCamera.transform.position.x, 
+            _mainCamera.transform.position.y - 10,
+            _mainCamera.transform.position.z);
+        _mainCamera.transform.DOMove(cameraNewPosition, time);
     }
 
     private IEnumerator DieTick(float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+        OnDie?.Invoke();
     }
 
     private IEnumerator EndAttack()
