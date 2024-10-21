@@ -6,13 +6,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Action OnDie;
+    
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _invisibleTime = 2f;
+    
     private Camera _mainCamera;
     private SPUM_Prefabs _spumPrefab;
     private Rigidbody2D _rigidbody;
     private Vector2 _movement;
-    private bool _isAttacking = false;
-    private bool _facingRight = false;
+    
+    private bool _isAttacking;
+    private bool _facingRight;
+    private bool _isPuckUpHealthBooster;
 
     private void Awake()
     {
@@ -85,9 +90,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
-        GetComponent<Collider2D>().enabled = false; 
-        enabled = false; 
-        StartCoroutine(DieTick(0.5f)); 
+        _spumPrefab.PlayAnimation(2);
+        
+        if (!_isPuckUpHealthBooster)
+        {
+            GetComponent<Collider2D>().enabled = false;
+            enabled = false;
+            StartCoroutine(DieTick(0.5f));
+        }
+        else
+        {
+            StartCoroutine(InvisibleTick());
+        }
     }
 
     public void NextLevel(Vector2 position, float time)
@@ -100,10 +114,16 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera.transform.DOMove(cameraNewPosition, time);
     }
 
+    private IEnumerator InvisibleTick()
+    {
+        yield return new WaitForSeconds(_invisibleTime);
+        _isPuckUpHealthBooster = false;
+    }
+
     private IEnumerator DieTick(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
+        Destroy(gameObject); 
         OnDie?.Invoke();
     }
 
@@ -112,4 +132,17 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _isAttacking = false;
     }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out HealthBooster _healthBooster))
+        {
+            if (!_isPuckUpHealthBooster)
+            {
+                _isPuckUpHealthBooster = true;
+                Destroy(_healthBooster.gameObject);
+            }
+        }
+    }
+
 }

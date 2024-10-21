@@ -1,25 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Cartridge : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
-    private ShootPull _shootPull;
     private Vector2 direction;
-    
-    public void Setup(ShootPull shootPull)
-    {
-        _shootPull = shootPull;
-    }
+    private Rigidbody2D _rigidbody;
 
     public void SetDirection(Vector2 newDirection)
     {
         direction = newDirection.normalized;
     }
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     private void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        GetComponent<Rigidbody2D>().velocity = direction * _speed;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.velocity = direction * _speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

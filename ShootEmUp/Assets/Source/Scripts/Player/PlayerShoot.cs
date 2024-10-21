@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     public ShootPull ShootPull;
+
+    [SerializeField] private float _shootSpeed = 0.1f;
+    [SerializeField] private float _shootAccelerant = 5;
+    
     private Vector2 _direction = Vector2.zero;
     private PlayerMovement _player;
-    private bool _isSpawning = false;
+    
+    private bool _isSpawning;
+    private bool _isPuckUpShootBooster;
 
     private void Awake()
     {
@@ -53,9 +59,32 @@ public class PlayerShoot : MonoBehaviour
         {
             _direction.Normalize();
             ShootPull.SpawnCartridge(_direction);
-            yield return new WaitForSeconds(0.1f); 
+            
+            if (!_isPuckUpShootBooster)
+                yield return new WaitForSeconds(_shootSpeed);
+            else
+                yield return new WaitForSeconds(_shootSpeed / _shootAccelerant);
         }
         _isSpawning = false;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out ShootBooster shootBooster))
+        {
+            if (!_isPuckUpShootBooster)
+            {
+                _isPuckUpShootBooster = true;
+                StartCoroutine(BoosterTick(shootBooster.LifeTick));
+                Destroy(shootBooster.gameObject);
+            }
+        }
+    }
+    
+    private IEnumerator BoosterTick(float boosterTime)
+    {
+        yield return new WaitForSeconds(boosterTime); 
+        _isPuckUpShootBooster = false;
     }
 }
 

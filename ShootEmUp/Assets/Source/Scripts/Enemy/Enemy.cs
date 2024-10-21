@@ -90,10 +90,5 @@ public class Enemy : MonoBehaviour
         {
             playerMovement.Die();
         }
-
-        if (collision.gameObject.CompareTag("Boundary"))
-        {
-
-        }
     }
 }

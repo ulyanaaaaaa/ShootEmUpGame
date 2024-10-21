@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
 
     private void FirstLevel()
     {
-        Debug.Log("1");
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsFirstLevel;
         _enemy.EnemiesWaves(_startEnemyCount, _enemiesWaveCountFirstLevel, false);
@@ -57,15 +56,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlayerTransition(Transform position)
     {
-        Debug.Log("2");
         _player.NextLevel(position.position, _playerTime);
         yield return new WaitForSeconds(_playerTime);
-        Debug.Log("3");
     }
 
     private void SecondLevel()
     {
-        Debug.Log("4");
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsSecondLevel;
         _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountSecondLevel, false);

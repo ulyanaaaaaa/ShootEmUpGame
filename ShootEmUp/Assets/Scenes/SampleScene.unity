@@ -24967,6 +24967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
+  _invisibleTime: 2
 --- !u!61 &5931144712316146380
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25052,6 +25053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPull: {fileID: 5931144712316146383}
+  _shootSpeed: 0.1
 --- !u!114 &5931144712316146383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25129,6 +25131,120 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6009341282972747314
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 494147179238896758, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_Name
+      value: 'HealthBooster '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.373
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.723
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.042
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3825245868158767007, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68b33570e04b09344bb7e4c8d4b20825, type: 3}
+--- !u!1001 &6374716337542193958
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030180301157530442, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291328422825089502, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
+      propertyPath: m_Name
+      value: ShootBooster
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57b48b25f784baa4e91b839432f91013, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -25148,3 +25264,5 @@ SceneRoots:
   - {fileID: 1136900335}
   - {fileID: 870933151}
   - {fileID: 2103149596}
+  - {fileID: 6009341282972747314}
+  - {fileID: 6374716337542193958}
