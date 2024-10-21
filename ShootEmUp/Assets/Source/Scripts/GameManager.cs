@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Action OnWin;
+    
     [SerializeField] private EnemyPull _enemyPull;
+    [SerializeField] private BoostersSpawner _boostersSpawner;
     
     [SerializeField] private Transform[] _spawnPointsFirstLevel;
     [SerializeField] private Transform[] _spawnPointsSecondLevel;
@@ -24,6 +26,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _enemiesWaveCountFirstLevel;
     [SerializeField] private int _enemiesWaveCountSecondLevel;
     [SerializeField] private int _enemiesWaveCountThirdLevel;
+
+    [SerializeField] private Vector2 _levelsSize = new Vector2(10f, 10f);
+
+    [SerializeField] private Vector2 _minSpawnBoostersPosition;
+    [SerializeField] private Vector2 _maxSpawnBoostersPosition;
     
     private Coroutine _coroutine;
     private Coroutine _gameCycle;
@@ -51,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsFirstLevel;
+        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition, _maxSpawnBoostersPosition);
         _enemy.EnemiesWaves(_startEnemyCount, _enemiesWaveCountFirstLevel, false);
     }
 
@@ -64,6 +72,8 @@ public class GameManager : MonoBehaviour
     {
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsSecondLevel;
+        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition + _levelsSize,
+            _maxSpawnBoostersPosition + _levelsSize);
         _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountSecondLevel, false);
     }
 
@@ -71,6 +81,8 @@ public class GameManager : MonoBehaviour
     {
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsThirdLevel;
+        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition + 2 * _levelsSize,
+            _maxSpawnBoostersPosition + 2 * _levelsSize);
         _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountThirdLevel, true);
     }
 
