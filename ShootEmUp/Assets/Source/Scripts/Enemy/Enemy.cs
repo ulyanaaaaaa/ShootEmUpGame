@@ -6,10 +6,11 @@ public class Enemy : MonoBehaviour
     private PlayerMovement _player;
     private SPUM_Prefabs _spumPrefab;
     private Rigidbody2D _rigidbody;
+    private Vector2 _movement;
     [SerializeField] private float _speed;
     private bool facingRight = true;
     [SerializeField] private LayerMask wallLayer;
-
+    
     private void Start()
     {
         _spumPrefab = GetComponent<SPUM_Prefabs>();
@@ -27,24 +28,38 @@ public class Enemy : MonoBehaviour
     {
         if (_player != null)
         {
-            Vector3 direction = (_player.transform.position - transform.position).normalized;
-
-            // Raycast to detect walls
+            Vector2 direction = (_player.transform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1f, wallLayer);
             if (hit.collider != null)
             {
-                // Wall detected, avoid it
-                direction = Vector3.Reflect(direction, hit.normal);
+                Vector2 leftDirection = Quaternion.Euler(0, 0, 45) * direction;
+                Vector2 rightDirection = Quaternion.Euler(0, 0, -45) * direction;
+                if (!Physics2D.Raycast(transform.position, leftDirection, 1f, wallLayer))
+                {
+                    direction = leftDirection;
+                }
+                else if (!Physics2D.Raycast(transform.position, rightDirection, 1f, wallLayer))
+                {
+                    direction = rightDirection;
+                }
+                else
+                {
+                    direction = Vector2.Reflect(direction, hit.normal);
+                }
             }
 
-            transform.position += direction * _speed * Time.deltaTime;
-            _spumPrefab.PlayAnimation(1);
+            _movement = direction;
 
-            if ((direction.x > 0 && !facingRight) || (direction.x < 0 && facingRight))
+            if ((direction.x > 0 && facingRight) || (direction.x < 0 && !facingRight))
             {
                 Flip();
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        _rigidbody.MovePosition((Vector2)transform.position + (_movement * _speed * Time.fixedDeltaTime));
     }
 
     private void Flip()
@@ -75,6 +90,10 @@ public class Enemy : MonoBehaviour
         {
             playerMovement.Die();
         }
-    }
 
+        if (collision.gameObject.CompareTag("Boundary"))
+        {
+
+        }
+    }
 }
