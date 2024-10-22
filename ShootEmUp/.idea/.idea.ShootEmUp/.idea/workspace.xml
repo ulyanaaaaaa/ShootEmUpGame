@@ -11,6 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/Booster.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/BoostersPull.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/BoostersSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/ShootBooster.cs" root0="FORCE_HIGHLIGHTING" />
@@ -65,6 +66,8 @@
       <workItem from="1729520237818" duration="1928000" />
       <workItem from="1729532411882" duration="1329000" />
       <workItem from="1729539902666" duration="8801000" />
+      <workItem from="1729592293169" duration="1233000" />
+      <workItem from="1729617591726" duration="680000" />
     </task>
     <servers />
   </component>

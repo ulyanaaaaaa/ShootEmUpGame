@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _enemiesWaveCountSecondLevel;
     [SerializeField] private int _enemiesWaveCountThirdLevel;
 
-    [SerializeField] private Vector2 _levelsSize = new Vector2(10f, 10f);
+    [SerializeField] private Vector2 _levelsSize =  new Vector2(0, 10);
 
     [SerializeField] private Vector2 _minSpawnBoostersPosition;
     [SerializeField] private Vector2 _maxSpawnBoostersPosition;
@@ -72,8 +72,8 @@ public class GameManager : MonoBehaviour
     {
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsSecondLevel;
-        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition + _levelsSize,
-            _maxSpawnBoostersPosition + _levelsSize);
+        Vector2 offset = new Vector2(0, _levelsSize.y); // Offset for the second level
+        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition - offset, _maxSpawnBoostersPosition - offset);
         _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountSecondLevel, false);
     }
 
@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour
     {
         _wavesCompleted = false;
         _enemyPull.SpawnPoints = _spawnPointsThirdLevel;
-        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition + 2 * _levelsSize,
-            _maxSpawnBoostersPosition + 2 * _levelsSize);
+        Vector2 offset = new Vector2(0, 2 * _levelsSize.y); // Offset for the third level
+        _boostersSpawner.SetSpawnArea(_minSpawnBoostersPosition - offset, _maxSpawnBoostersPosition - offset);
         _enemy.EnemiesWaves(_startEnemyCount * (int)_enemyMultiplier, _enemiesWaveCountThirdLevel, true);
     }
 

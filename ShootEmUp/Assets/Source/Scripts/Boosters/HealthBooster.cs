@@ -1,7 +1,4 @@
-using UnityEngine;
-
-public class HealthBooster : MonoBehaviour
+public class HealthBooster : Booster
 {
-    
-    
+
 }

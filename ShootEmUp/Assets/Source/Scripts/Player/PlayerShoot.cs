@@ -75,8 +75,8 @@ public class PlayerShoot : MonoBehaviour
             if (!_isPuckUpShootBooster)
             {
                 _isPuckUpShootBooster = true;
-                StartCoroutine(BoosterTick(shootBooster.LifeTick));
-                Destroy(shootBooster.gameObject);
+                StartCoroutine(BoosterTick(shootBooster.DurationTick));
+                shootBooster.gameObject.SetActive(false);
             }
         }
     }

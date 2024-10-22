@@ -135,12 +135,12 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out HealthBooster _healthBooster))
+        if (collision.gameObject.TryGetComponent(out HealthBooster healthBooster))
         {
             if (!_isPuckUpHealthBooster)
             {
                 _isPuckUpHealthBooster = true;
-                Destroy(_healthBooster.gameObject);
+                healthBooster.gameObject.SetActive(false);
             }
         }
     }

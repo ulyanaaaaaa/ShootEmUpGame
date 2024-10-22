@@ -1,7 +1,5 @@
-using UnityEngine;
-
-public class ShootBooster : MonoBehaviour
+public class ShootBooster : Booster
 {
-    public float LifeTick;
+    public float DurationTick;
 }
 
