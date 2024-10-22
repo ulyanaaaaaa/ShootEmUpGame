@@ -17,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
     
     private bool _isAttacking;
     private bool _facingRight;
+    
     private bool _isPuckUpHealthBooster;
+    private bool _isPuckUpLowSpeedDebuf;
 
     private void Awake()
     {
@@ -67,7 +69,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.MovePosition(_rigidbody.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+        if (!_isPuckUpLowSpeedDebuf)
+            _rigidbody.MovePosition(_rigidbody.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+        else
+            _rigidbody.MovePosition(_rigidbody.position + _movement * _moveSpeed / 2 * Time.fixedDeltaTime);
     }
 
     public void Attack()
@@ -143,6 +148,18 @@ public class PlayerMovement : MonoBehaviour
                 healthBooster.gameObject.SetActive(false);
             }
         }
+        
+        if (collision.gameObject.TryGetComponent(out LowPlayerSpeedZone lowPlayerSpeedZone))
+        {
+            _isPuckUpLowSpeedDebuf = true;
+        }
     }
-
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out LowPlayerSpeedZone lowZone))
+        {
+            _isPuckUpLowSpeedDebuf = false;
+        }
+    }
 }

@@ -16,6 +16,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/BoostersSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Boosters/ShootBooster.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Cartridge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Debuffs/LowPlayerSpeedZone.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/Player/PlayerShoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Scripts/WindowsManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +68,7 @@
       <workItem from="1729532411882" duration="1329000" />
       <workItem from="1729539902666" duration="8801000" />
       <workItem from="1729592293169" duration="1233000" />
-      <workItem from="1729617591726" duration="680000" />
+      <workItem from="1729617591726" duration="2863000" />
     </task>
     <servers />
   </component>

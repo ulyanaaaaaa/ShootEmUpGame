@@ -14,6 +14,7 @@ public class PlayerShoot : MonoBehaviour
     
     private bool _isSpawning;
     private bool _isPuckUpShootBooster;
+    private bool _isPuckUpLowShootDebuff;
 
     private void Awake()
     {
@@ -59,11 +60,18 @@ public class PlayerShoot : MonoBehaviour
         {
             _direction.Normalize();
             ShootPull.SpawnCartridge(_direction);
+
+            if (_isPuckUpShootBooster && !_isPuckUpLowShootDebuff)
+                yield return new WaitForSeconds(_shootSpeed /  _shootAccelerant);
             
-            if (!_isPuckUpShootBooster)
+            else if (_isPuckUpLowShootDebuff && !_isPuckUpShootBooster)
+                yield return new WaitForSeconds(_shootSpeed * _shootAccelerant);
+            
+            else if (_isPuckUpLowShootDebuff && _isPuckUpShootBooster)
                 yield return new WaitForSeconds(_shootSpeed);
+            
             else
-                yield return new WaitForSeconds(_shootSpeed / _shootAccelerant);
+                yield return new WaitForSeconds(_shootSpeed);
         }
         _isSpawning = false;
     }
@@ -79,8 +87,21 @@ public class PlayerShoot : MonoBehaviour
                 shootBooster.gameObject.SetActive(false);
             }
         }
+        
+        if (collision.gameObject.TryGetComponent(out LowShootZone lowShootZone))
+        {
+            _isPuckUpLowShootDebuff = true;
+        }
     }
-    
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out LowShootZone lowShootZone))
+        {
+            _isPuckUpLowShootDebuff = false;
+        }
+    }
+
     private IEnumerator BoosterTick(float boosterTime)
     {
         yield return new WaitForSeconds(boosterTime); 
