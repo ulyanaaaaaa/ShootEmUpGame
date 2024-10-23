@@ -24734,7 +24734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPull: {fileID: 5931144712316146383}
-  _shootSpeed: 0.09
+  _shootSpeed: 0.05
   _shootAccelerant: 2
 --- !u!114 &5931144712316146383
 MonoBehaviour:
@@ -24749,6 +24749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 792687461}
+  _initialPoolSize: 20
 --- !u!4 &5931144712367744534
 Transform:
   m_ObjectHideFlags: 0

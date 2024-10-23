@@ -8,19 +8,23 @@ public class Cartridge : MonoBehaviour
     private Vector2 direction;
     private Rigidbody2D _rigidbody;
 
-    public void SetDirection(Vector2 newDirection)
-    {
-        direction = newDirection.normalized;
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
         _rigidbody.velocity = Vector2.zero;
+    }
+
+    public void SetDirection(Vector2 newDirection)
+    {
+        direction = newDirection.normalized;
+    }
+
+    private void Update()
+    {
         _rigidbody.velocity = direction * _speed;
     }
 
@@ -39,6 +43,6 @@ public class Cartridge : MonoBehaviour
 
     private void Die()
     {
-       Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
